@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/static/style.css" />
+  <title>LLM + RAG Function Execution</title>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>🚀 LLM + RAG Function Execution</h1>
+      <p>Generate and execute functions using AI with just a query!</p>
+    </header>
+
+    <!-- Form Section -->
+    <form id="queryForm">
+      <label for="prompt"><strong>🔎 Enter your query:</strong></label>
+      <div class="form-group">
+        <input type="text" id="prompt" name="prompt" placeholder="e.g., Open Chrome" required />
+        <button type="submit">Generate Code</button>
+      </div>
+    </form>
+
+    <!-- Response Section (Initially Hidden) -->
+    <section class="response-section" id="responseSection" style="display:none;">
+      <h2>📦 Response</h2>
+      <div class="response-box">
+        <pre id="response"></pre>
+        <button id="executeButton" style="display:none;">🚀 Execute Function</button>
+        <div id="executionOutput" class="box" style="display:none; margin-top: 20px;">
+          <h3>🖥️ Execution Output:</h3>
+          <pre id="executionResult">Waiting for function execution...</pre>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- JavaScript for API Call and Execution -->
+  <script>
+    let currentFunction = null;
+
+    // Form Submission to Generate Code
+    document.getElementById("queryForm").onsubmit = async function(event) {
+      event.preventDefault();
+      const prompt = document.getElementById("prompt").value;
+      const responseElement = document.getElementById("response");
+      const responseSection = document.getElementById("responseSection");
+      const executeButton = document.getElementById("executeButton");
+      const executionOutput = document.getElementById("executionOutput");
+      
+      responseSection.style.display = "block";
+      executeButton.style.display = "none";
+      executionOutput.style.display = "none";
+      responseElement.innerText = "⏳ Processing...";
+
+      try {
+        const response = await fetch("/execute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt }),
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          responseElement.innerText = `❗ Error: ${errorData.detail}`;
+        } else {
+          const data = await response.json();
+          currentFunction = data.function;
+
+          responseElement.innerHTML = `
+            <div class="box">
+              <h3>✅ Function Name:</h3> <p>${data.function}</p>
+            </div>
+            <div class="box">
+              <h3>📝 Description:</h3> <p>${data.description}</p>
+            </div>
+            <div class="box">
+              <h3>📘 Function Definition:</h3>
+              <pre>${data.function_definition}</pre>
+            </div>
+            <div class="box">
+              <h3>💻 Generated Code:</h3>
+              <pre>${data.code}</pre>
+            </div>
+          `;
+
+          executeButton.style.display = "inline-block"; // Show execute button
+        }
+      } catch (error) {
+        responseElement.innerText = `⚠️ Error: ${error.message}`;
+      }
+    };
+
+    // Execute Function
+    document.getElementById("executeButton").onclick = async function() {
+      if (!currentFunction) {
+        alert("No function available to execute.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/run", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ function_name: currentFunction }),
+        });
+
+        const executionOutput = document.getElementById("executionOutput");
+        const executionResult = document.getElementById("executionResult");
+        executionOutput.style.display = "block";
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          executionResult.innerText = `❗ Error: ${errorData.detail}`;
+        } else {
+          const data = await response.json();
+          executionResult.innerText = `✅ Output: ${data.message}`;
+        }
+      } catch (error) {
+        executionResult.innerText = `⚠️ Error: ${error.message}`;
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #1E2A38;
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+  overflow-y: auto;
+}
+
+/* Container Styling */
+.container {
+  width: 90vw;
+  max-width: 1000px;
+  background-color: #14253E;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Header Styling */
+header {
+  padding-bottom: 20px;
+}
+
+header h1 {
+  color: #FFC857;
+  font-size: 2.5rem;
+}
+
+header p {
+  color: #cfd8dc;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+}
+
+/* Form Styling */
+form {
+  margin-bottom: 30px;
+}
+
+label {
+  font-size: 1.2rem;
+  color: #FFC857;
+}
+
+.form-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+input {
+  flex: 1;
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #00A8CC;
+  background-color: #1E3A5F;
+  color: #fff;
+}
+
+input:focus {
+  border-color: #FFC857;
+  outline: none;
+}
+
+button {
+  background-color: #00A8CC;
+  color: #fff;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #007A99;
+}
+
+/* Response Section */
+.response-section h2 {
+  color: #FFC857;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  margin-bottom: 13px;
+}
+
+/* Response Box Styling */
+.response-box {
+  background-color: rgba(20, 37, 62, 0.95);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #00A8CC;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Box for Function Details */
+.box {
+  background-color: #1E3A5F;
+  border-radius: 12px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 10px; /* Reduced space */
+  border: 1px solid #00A8CC;
+}
+
+h3 {
+  color: #FFC857;
+}
+
+/* Code Block Styling */
+pre {
+  background-color: #002B36;
+  color: #ffffff;
+  padding: 16px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-x: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}
