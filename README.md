@@ -93,6 +93,9 @@ Here are some example functions included in the `automation_functions.py` file:
 
 You can add custom functions in the `automation_functions.py` file and register them using ChromaDB.
 
+![App Screenshot](./static/sample.png)
+
+
 ## 🚦 API Endpoints
 
 * **POST /execute**
