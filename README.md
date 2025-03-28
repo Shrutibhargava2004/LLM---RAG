@@ -85,7 +85,11 @@ Here are some example functions included in the `automation_functions.py` file:
 
 * **Open Chrome:** Launches Google Chrome using `open_chrome()`
 * **Get CPU Usage:** Displays the current CPU usage using `get_cpu_usage()`
-* **Get System Info:** Retrieves basic system information using `get_system_info()`
+* **Open File Explorer:** Open File Explorer using `open_file_explorer()`
+* **Open Calculator:** Open calculator using `open_calculator()`
+* **Open Notepad:** Open Notepad using `open_notepad()`
+* **Get RAM Usage:** Displays the current RAM usage using `get_ram_usage()`
+
 
 You can add custom functions in the `automation_functions.py` file and register them using ChromaDB.
 
